@@ -1,6 +1,8 @@
 package com.example.myapplication.Domain;
 
-public class GiftDomain {
+import java.io.Serializable;
+
+public class GiftDomain implements Serializable {
     private String title;
     private String pic;
     private String description;
