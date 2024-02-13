@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.myapplication.Domain.GiftDomain;
+import com.example.myapplication.Interface.ChangeNumberItemsListener;
 
 import java.util.ArrayList;
 
@@ -33,11 +34,34 @@ public class ManagementCart {
         }else {
             listGift.add(item);
         }
-        tinyDB.putListObject("CardList",listGift);
+        tinyDB.putListObject("CartList",listGift);
         Toast.makeText(context,"Added To Cart", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<GiftDomain> getListCart() {
         return tinyDB.getListObject("CartList");
+    }
+    public void plusNumberGift(ArrayList<GiftDomain>listGift, int position, ChangeNumberItemsListener changeNumberItemsListener){
+        listGift.get(position).setNumberInCart(listGift.get(position).getNumberInCart());
+        tinyDB.putListObject("CartList", listGift);
+        changeNumberItemsListener.change();
+    }
+    public void minusNumberGift(ArrayList<GiftDomain>listGift, int position, ChangeNumberItemsListener changeNumberItemsListener){
+        if(listGift.get(position).getNumberInCart()==1 ){
+            listGift.remove(position);
+        }else {
+            listGift.get(position).setNumberInCart(listGift.get(position).getNumberInCart()-1);
+        }
+        tinyDB.putListObject("CartList",listGift);
+        changeNumberItemsListener.change();
+    }
+
+    public Double getTotalFee(){
+        ArrayList<GiftDomain> listGift = getListCart();
+        double fee = 0;
+        for(int i = 0; i < listGift.size(); i++){
+            fee = fee + (listGift.get(i).getFee() * listGift.get(i).getNumberInCart());
+        }
+        return fee;
     }
 }
