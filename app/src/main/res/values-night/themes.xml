@@ -3,5 +3,7 @@
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#1d3525</item>
+        <item name="colorPrimaryVariant">#1d3525</item>
     </style>
 </resources>

@@ -1,15 +1,15 @@
 package com.example.myapplication.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adaptor.CartListAdapter;
 import com.example.myapplication.Helper.ManagementCart;
@@ -36,6 +36,7 @@ public class CartListActivity extends AppCompatActivity {
         initList();
         CalculateCart();
         bottomNavigation();
+        /*cartPayment();*/
     }
 
     private void bottomNavigation(){
@@ -98,4 +99,21 @@ public class CartListActivity extends AppCompatActivity {
         deliveryTxt.setText("R" + delivery);
         totalTxt.setText("R" + total);
     }
+
+   /* private void cartPayment(){
+
+        TextView CheckOut = findViewById(R.id.textView20);
+        double delivery = 20;
+        double total = Math.round((managementCart.getTotalFee() + tax + delivery) * 100)/100;
+
+        CheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartListActivity.this, PaymentFrontActivity.class);
+                intent.putExtra("totalFee", total);
+                intent.putExtra("tax", tax);
+                startActivity(intent);
+            }
+        });
+    }*/
 }

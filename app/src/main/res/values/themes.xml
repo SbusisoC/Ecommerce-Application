@@ -6,5 +6,8 @@
         <item name="colorPrimaryVariant">#1d3525</item>
     </style>
 
-    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+    <style name="Theme.MyApplication.CustomStatusBar" parent="Base.Theme.MyApplication" >
+        <item name="android:statusBarColor">#fdfafa</item>
+    </style>
+
 </resources>

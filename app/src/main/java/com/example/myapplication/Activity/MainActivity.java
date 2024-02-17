@@ -1,13 +1,14 @@
 package com.example.myapplication.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adaptor.CategoryAdaptor;
 import com.example.myapplication.Adaptor.PopularAdaptor;
@@ -15,12 +16,18 @@ import com.example.myapplication.Domain.CategoryDomain;
 import com.example.myapplication.Domain.GiftDomain;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter, adapter2;
     private RecyclerView recyclerViewCategoryList, recyclerViewPopularList;
+    FirebaseAuth auth;
+    TextView button;
+    TextView textView;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,29 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCategory();
         recyclerViewPopular();
         bottomNavigation();
+
+        auth = FirebaseAuth.getInstance();
+        button = findViewById(R.id.logoutBtn);
+        textView = findViewById(R.id.user);
+        user = auth.getCurrentUser();
+        if(user == null){
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            textView.setText(user.getDisplayName());
+        }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void bottomNavigation(){
